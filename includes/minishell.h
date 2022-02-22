@@ -6,4 +6,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+char		**enviroment;
+
+
+void		init_env(int argc, char **argv, char **envp);
+
+// Utils
+void		free_wstr(char **arr);
+
 #endif

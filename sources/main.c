@@ -2,10 +2,28 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	// char	*input_str;
-	(void)argc;
-	(void)argv;
-	(void)envp;
+	int		ret;
+	char	*input_str;
+	char	**commands;
 
-	rl_replace_line("s", 1);
+	init_env(argc, argv, envp);
+	ret = 0;
+	while (1)
+	{
+		input_str = readline("😎 minishell$> ");
+		printf("%s\n", input_str);
+		// if (!check_input(input_str))
+		// {
+		// 	free(input_str);
+		// 	continue ;
+		// }
+		commands = ft_split(input_str, ';');
+		free(input_str);
+		// ret = exec_commands(commands);
+		free_wstr(commands);
+		// if (ret == -1)
+		// 	break ;
+	}
+	free_wstr(enviroment);
+	return (0);
 }

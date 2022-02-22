@@ -9,7 +9,7 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 LIBFT = ./libft/libft.a
 LIB = ar -rcs $(NAME)
 
-SRC = sources/main.c
+SRC = sources/main.c sources/enviroment.c sources/utils.c
 OBJ = $(SRC:.c=.o)
 
 
@@ -23,7 +23,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADERS) Makefile
 		$(MAKE) -C ./libft
-		$(CC) $(OBJ) -o $(NAME) -lreadline -L ~/.brew/opt/readline/lib
+		$(CC) $(OBJ) -o $(NAME) -lreadline -L ~/.brew/opt/readline/lib $(LIBFT)
 
 clean:
 		$(MAKE) clean -C ./libft
