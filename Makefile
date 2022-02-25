@@ -14,7 +14,7 @@ SRC = sources/main.c sources/enviroment.c sources/utils.c sources/execute.c \
 OBJ = $(SRC:.c=.o)
 
 
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -I /opt/homebrew/opt/readline/include
+CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -I ~/.brew/opt/readline/include
 CC = gcc
 
 %.o: %.c
@@ -24,7 +24,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADERS) Makefile
 		$(MAKE) -C ./libft
-		$(CC) $(OBJ) -o $(NAME) -lreadline -L /opt/homebrew/opt/readline/lib $(LIBFT)
+		$(CC) $(OBJ) -o $(NAME) -lreadline -L ~/.brew/opt/readline/lib $(LIBFT)
 
 clean:
 		$(MAKE) clean -C ./libft

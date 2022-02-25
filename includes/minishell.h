@@ -8,9 +8,15 @@
 # include <sys/stat.h>
 # include <unistd.h>
 
-char		**enviroment;
+typedef struct s_mshell
+{
+	char	**enviroment;
+	char	**commands;
+} t_mshell;
 
-// Enviroment
+struct s_mshell	data;
+
+// data.enviroment
 void		init_env(int argc, char **argv, char **envp);
 char		*get_env_var(char *var);
 int			print_env(void);

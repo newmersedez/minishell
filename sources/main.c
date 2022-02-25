@@ -11,20 +11,14 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input_str = readline("😎 minishell$> ");
-		//printf("%s\n", input_str);
-		// if (!check_input(input_str))
-		// {
-		// 	free(input_str);
-		// 	continue ;
-		// }
 		add_history(input_str);
 		commands = ft_split(input_str, ';');
 		free(input_str);
 		ret = exec_commands(commands);
 		free_wstr(commands);
-		 if (ret == -1)
+		if (ret == -1)
 		 	break ;
 	}
-	free_wstr(enviroment);
+	free_wstr(data.enviroment);
 	return (0);
 }
