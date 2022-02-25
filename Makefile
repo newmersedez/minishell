@@ -9,7 +9,8 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 LIBFT = ./libft/libft.a
 LIB = ar -rcs $(NAME)
 
-SRC = sources/main.c sources/enviroment.c sources/utils.c
+SRC = sources/main.c sources/enviroment.c sources/utils.c sources/execute.c \
+	sources/bin_commands.c sources/pwd.c
 OBJ = $(SRC:.c=.o)
 
 
