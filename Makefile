@@ -10,7 +10,7 @@ LIBFT = ./libft/libft.a
 LIB = ar -rcs $(NAME)
 
 SRC = sources/main.c sources/enviroment.c sources/utils.c sources/execute.c \
-	sources/bin_commands.c sources/pwd.c
+	sources/bin_commands.c sources/pwd.c sources/parse.c
 OBJ = $(SRC:.c=.o)
 
 

@@ -27,6 +27,8 @@ int			exec_command(char **command);
 int			check_bins(char **command);
 int			is_exec(char *bin_path, char **command);
 
+// Parser
+int			parse_commandline(char *command_line);
 
 // Utils
 void		free_wstr(char **arr);
