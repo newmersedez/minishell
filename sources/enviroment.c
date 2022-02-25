@@ -1,5 +1,15 @@
 #include "minishell.h"
 
+int	print_env(void)
+{
+	int	i;
+
+	i = -1;
+	while (enviroment[++i])
+		printf("%s\n", enviroment[i]);
+	return (1);
+}
+
 static int env_length(char **envp)
 {
 	int	i;
@@ -32,4 +42,23 @@ void	init_env(int argc, char **argv, char **envp)
 		}
 	}
 	enviroment[i] = NULL;
+}
+
+char	*get_env_var(char *var)
+{
+	int		i;
+	char	*temp;
+
+	i = -1;
+	temp = ft_strjoin(var, "=");
+	while (enviroment[++i])
+	{
+		if (!ft_strncmp(enviroment[i], temp, ft_strlen(temp)))
+		{
+			free(temp);
+			return (ft_strchr(enviroment[i], '=') + 1);
+		}
+	}
+	free(temp);
+	return (NULL);
 }

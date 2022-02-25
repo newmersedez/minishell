@@ -12,3 +12,16 @@ void	free_wstr(char **arr)
 	free(arr);
 	arr = NULL;
 }
+
+char	*path_join(char *s1, char *s2)
+{
+	char 	*path;
+
+	if (s1[ft_strlen(s1) - 1] != '/')
+	{
+		path = ft_strjoin(s1, "/");
+		return (ft_strjoin(path, s2));
+	}
+	path = ft_strjoin(s1, s2);
+	return (path);
+}

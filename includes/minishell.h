@@ -5,13 +5,27 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 char		**enviroment;
 
-
+// Enviroment
 void		init_env(int argc, char **argv, char **envp);
+char		*get_env_var(char *var);
+int			print_env(void);
+
+// Execute
+int			exec_commands(char **commands);
+int			exec_command(char **command);
+int			check_bins(char **command);
+int			is_exec(char *bin_path, char **command);
+
 
 // Utils
 void		free_wstr(char **arr);
+char		*path_join(char *s1, char *s2);
+
+int			pwd(int flag);
 
 #endif

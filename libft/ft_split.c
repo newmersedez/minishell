@@ -12,94 +12,104 @@
 
 #include "libft.h"
 
-static size_t	get_size(char const *s, char c)
+static char	**ft_malloc_error(char **array)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+	return (NULL);
+}
+
+static int	ft_count_words(char const *s, char c)
 {
 	size_t	i;
-	size_t	count;
+	size_t	words;
 
-	if (!s)
+	i = 1;
+	words = 0;
+	if (!s || !*s)
 		return (0);
-	i = 0;
-	count = 0;
+	if (s[0] != c)
+		words++;
 	while (s[i])
 	{
-		if (s[i] != c)
-		{
-			while (s[i] && s[i] != c)
-				i++;
-			count++;
-		}
-		else
-			i++;
+		if (s[i] != c && s[i - 1] == c)
+			words++;
+		i++;
 	}
-	return (count);
+	return (words);
 }
 
-static char	*get_word(const char **s, char c)
+static char	**ft_malloc_array(char const *str, char separate)
 {
-	size_t	i;
-	size_t	len;
+	char	**array;
+	int		words;
+
+	words = ft_count_words(str, separate);
+	array = (char **)malloc(sizeof(*array) * (words + 1));
+	if (!array)
+		return (NULL);
+	return (array);
+}
+
+static char	*ft_create_word(char const *s, char c, size_t *i)
+{
+	int		ind;
+	int		size;
 	char	*word;
 
-	i = 0;
-	while ((*s)[i] && (*s)[i] != c)
-		i++;
-	word = (char *)malloc(i + 1);
+	size = 0;
+	ind = *i;
+	while (s[ind] && s[ind] != c)
+	{
+		size++;
+		ind++;
+	}
+	word = (char *)malloc(sizeof(char) * (size + 1));
 	if (!word)
 		return (NULL);
-	len = i;
-	i = 0;
-	while (i < len && **s)
+	ind = 0;
+	while (s[*i] && s[*i] != c)
 	{
-		word[i] = **s;
-		(*s)++;
-		i++;
+		word[ind] = s[*i];
+		(*i)++;
+		ind++;
 	}
-	word[i] = '\0';
+	word[ind] = '\0';
 	return (word);
-}
-
-static void	clear_mem(char **array_of_words, size_t len)
-{
-	size_t	i;
-
-	if (array_of_words)
-	{
-		i = 0;
-		while (i < len)
-		{
-			free(array_of_words[i]);
-			i++;
-		}
-		free(array_of_words);
-	}
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	count;
-	char	**array_of_words;
+	char	**array;
+	size_t	s_size;
+	size_t	i;
+	size_t	j;
 
 	if (!s)
 		return (NULL);
-	array_of_words = (char **)ft_calloc((get_size(s, c) + 1), sizeof(char *));
-	if (!array_of_words)
+	array = ft_malloc_array(s, c);
+	if (!(array))
 		return (NULL);
-	count = 0;
-	while (*s != '\0')
+	i = 0;
+	j = 0;
+	s_size = ft_strlen(s);
+	while (i < s_size && s[i])
 	{
-		if (*s != c)
+		if (i < s_size && (char)s[i] != c)
 		{
-			array_of_words[count] = get_word(&s, c);
-			if (!array_of_words[count])
-			{
-				clear_mem(array_of_words, count);
-				return (NULL);
-			}
-			count++;
+			array[j] = ft_create_word(s, c, &i);
+			if (!array[j++])
+				return (ft_malloc_error(array));
 		}
-		s++;
+		i++;
 	}
-	array_of_words[count] = NULL;
-	return (array_of_words);
+	array[j] = NULL;
+	return (array);
 }
